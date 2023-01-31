@@ -16,7 +16,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
+
+
+
         binding.textView1.setText("test du bind ?");
         binding.button.setText("yep ça marche");
-            }
+    }
 }
