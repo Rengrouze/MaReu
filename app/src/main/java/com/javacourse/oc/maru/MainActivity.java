@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.javacourse.oc.maru.databinding.ActivityMainBinding;
+import com.javacourse.oc.maru.di.DI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        DI.getMeetingApiService().getMeetings();
 
 
 
 
-        binding.textView1.setText("test du bind ?");
-        binding.button.setText("yep ça marche");
+
     }
 }

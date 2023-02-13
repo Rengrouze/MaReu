@@ -1,5 +1,6 @@
 package com.javacourse.oc.maru.model;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Meeting {
@@ -9,6 +10,7 @@ public class Meeting {
     private String location;
     private String subject;
     private ArrayList<String> participants;
+    private Date date;
 
 
     /**
@@ -26,6 +28,7 @@ public class Meeting {
         this.location = location;
         this.subject = subject;
         this.participants = participants;
+        this.date = date;
     }
 
     public long getId() {
@@ -67,6 +70,15 @@ public class Meeting {
     public void setParticipants(ArrayList<String> participants) {
         this.participants = participants;
     }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
