@@ -34,4 +34,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     public int getItemCount() {
         return mMeetings.size();
     }
+    public void updateData(List<Meeting> meetings){
+        mMeetings.clear();
+        mMeetings.addAll(meetings);
+        notifyDataSetChanged();
+    }
 }

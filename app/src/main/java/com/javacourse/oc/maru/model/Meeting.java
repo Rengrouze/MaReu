@@ -83,8 +83,8 @@ public class Meeting {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Meeting metting = (Meeting) o;
-        return Objects.equals(id, metting.id);
+        Meeting meeting = (Meeting) o;
+        return Objects.equals(id, meeting.id);
     }
     @Override
     public int hashCode(){
