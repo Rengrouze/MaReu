@@ -1,6 +1,5 @@
 package com.javacourse.oc.maru.model;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 public class Meeting {
@@ -10,7 +9,7 @@ public class Meeting {
     private String location;
     private String subject;
     private ArrayList<String> participants;
-    private Date date;
+    private String date;
 
 
     /**
@@ -22,7 +21,7 @@ public class Meeting {
      * @param participants
      */
 
-    public Meeting(int id, String time, String location, String subject, ArrayList<String> participants) {
+    public Meeting(int id, String time, String location, String subject, ArrayList<String> participants, String date) {
         this.id = id;
         this.time = time;
         this.location = location;
@@ -71,11 +70,11 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -90,4 +89,6 @@ public class Meeting {
     public int hashCode(){
         return Objects.hash(id);
     }
+
+
 }

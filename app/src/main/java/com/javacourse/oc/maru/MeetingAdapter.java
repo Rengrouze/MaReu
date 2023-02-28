@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.javacourse.oc.maru.databinding.ItemListMeetingBinding;
+import com.javacourse.oc.maru.di.DI;
 import com.javacourse.oc.maru.model.Meeting;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     public void onBindViewHolder(MeetingViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.bind(meeting);
+        holder.binding.itemListMeetingDeleteButton.setOnClickListener(view -> {
+            DI.getMeetingApiService().deleteMeeting(meeting);
+            mMeetings.remove(meeting);
+            notifyDataSetChanged();
+        });
+
     }
 
     @Override

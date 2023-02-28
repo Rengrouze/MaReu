@@ -3,6 +3,7 @@ package com.javacourse.oc.maru;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.javacourse.oc.maru.databinding.ActivityMainBinding;
@@ -33,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         configureRecyclerView();
-
-        // Mettre à jour les données
         updateMeetings();
-
-
+        // Mettre à jour les données
+        binding.activityListUserFab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
+            startActivity(intent);
+        });
 
 
 
