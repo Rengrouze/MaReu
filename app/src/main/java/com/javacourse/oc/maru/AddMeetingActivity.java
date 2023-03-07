@@ -19,7 +19,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.datePickerEditText.setText("test");
 
     }
 

@@ -25,7 +25,8 @@
                     android:id="@+id/datePickerEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
+                    android:inputType="date"
+                    android:maxLines="1"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -41,11 +42,42 @@
                     android:id="@+id/time_picker_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="time"
+                    android:maxLines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Thème de la réunion"
+                app:layout_constraintTop_toBottomOf="@+id/datePickerLayout">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/room_picker_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:maxLines="1"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Participants, séparés par une virgule"
+                app:layout_constraintTop_toBottomOf="@+id/datePickerLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/peoples_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:maxLines="1"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

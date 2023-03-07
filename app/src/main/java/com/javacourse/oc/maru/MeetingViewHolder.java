@@ -26,7 +26,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Meeting meeting) {
 
-        binding.itemListMeetingName.setText( meeting.getDate() + " - " +meeting.getLocation() + " - "+ meeting.getTime()+" - " + meeting.getSubject());
+        binding.itemListMeetingName.setText( meeting.getDate() + " - " +meeting.getLocation() + " - "+ meeting.getTime());
+        binding.itemListMeetingTheme.setText(meeting.getSubject());
         binding.itemListMeetingPeople.setText(meeting.getParticipants().toString());
 
 
