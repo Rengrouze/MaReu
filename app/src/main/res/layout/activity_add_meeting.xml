@@ -25,15 +25,18 @@
                     android:id="@+id/date_picker_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:maxLines="1"/>
+                    android:inputType="none"
+
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:id="@+id/datePickerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Date" />
+                android:text="Choisissez une date" />
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
