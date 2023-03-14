@@ -48,10 +48,17 @@
                     android:id="@+id/time_picker_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="time"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:maxLines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/timePickerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choisissez une horaire" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

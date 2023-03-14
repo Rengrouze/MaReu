@@ -1,10 +1,12 @@
 package com.javacourse.oc.maru;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,11 +32,18 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         // Set click listener for date picker button
         Button datePickerButton = binding.datePickerButton;
+        Button timePickerButton = binding.timePickerButton;
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Show date picker dialog
                 showDatePicker();
+            }
+        });
+        timePickerButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                showTimePicker();
             }
         });
 
@@ -58,6 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void showDatePicker() {
@@ -80,4 +90,20 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         datePickerDialog.show();
     }
+    private void showTimePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        // Update time picker edit text
+                        String time = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
+                        binding.timePickerEdittext.setText(time);
+                    }
+                }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
 }
