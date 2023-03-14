@@ -2,8 +2,11 @@ package com.javacourse.oc.maru;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -12,10 +15,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.javacourse.oc.maru.databinding.ActivityAddMeetingBinding;
+import com.javacourse.oc.maru.di.DI;
+import com.javacourse.oc.maru.model.Meeting;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.UUID;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -29,10 +35,27 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        String[] roomOptions ={"Salle 1" , "Salle 2", "Salle 3"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roomOptions);
+        binding.roomPicker.setAdapter(adapter);
         // Set click listener for date picker button
         Button datePickerButton = binding.datePickerButton;
         Button timePickerButton = binding.timePickerButton;
+
+        binding.roomPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // Get the selected room
+                String room = (String) adapterView.getItemAtPosition(i);
+                Toast.makeText(AddMeetingActivity.this, "Selected room: " + room, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // Do nothing
+            }
+        });
+
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,20 +76,30 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Get values from input fields
-                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate.getTime());
+                String date = selectedDate != null ? new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate.getTime()) : null;
                 String time = binding.timePickerEdittext.getText().toString();
-                String room = binding.roomPickerEdittext.getText().toString();
+                String room = binding.roomPicker.getText().toString();
+                String theme = binding.themePickerEdittext.getText().toString();
                 String participants = binding.peoplesEdittext.getText().toString();
 
-                // TODO: Create new meeting with input values
+                if (date == null || time.isEmpty() || room.isEmpty() || theme.isEmpty() || participants.isEmpty()){
+                    Toast.makeText(AddMeetingActivity.this, "Veuillez remplir tout les champs", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                Meeting newMeeting = new Meeting(UUID.randomUUID().toString(),time,room,theme,participants,date);
+                DI.getMeetingApiService().addMeeting(newMeeting);
 
                 // Show success message
                 Toast.makeText(AddMeetingActivity.this, "Meeting added", Toast.LENGTH_SHORT).show();
 
                 // Finish activity
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
+
 
     }
 
@@ -88,8 +121,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         }, year, month, day);
 
+        // Set minimum date to today
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
         datePickerDialog.show();
     }
+
     private void showTimePicker() {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -103,7 +140,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                         binding.timePickerEdittext.setText(time);
                     }
                 }, hour, minute, true);
+
         timePickerDialog.show();
     }
+
 
 }

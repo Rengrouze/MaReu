@@ -13,6 +13,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/roomPickerLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Salle">
+
+                <AutoCompleteTextView
+                    android:id="@+id/room_Picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:cursorVisible="false"
+                    android:inputType="none"/>
+
+
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/datePickerLayout"
@@ -68,10 +88,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/datePickerLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/room_picker_edittext"
+                    android:id="@+id/theme_picker_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="time"
+                    android:inputType="text"
                     android:maxLines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,8 +107,8 @@
                     android:id="@+id/peoples_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:maxLines="1"/>
+                    android:inputType="text"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +116,7 @@
                 android:id="@+id/addMeetingButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Créer une réunion" />
 
         </LinearLayout>
 

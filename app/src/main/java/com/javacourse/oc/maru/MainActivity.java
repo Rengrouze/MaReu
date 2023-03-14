@@ -15,16 +15,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
-
-    private void configureRecyclerView(){
-        mRecyclerView = binding.activityListUserRv;
-        mAdapter = new MeetingAdapter(new ArrayList<Meeting>());
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +25,24 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Configure RecyclerView
+        mRecyclerView = binding.activityListUserRv;
+        mAdapter = new MeetingAdapter(new ArrayList<Meeting>());
+        mRecyclerView.setAdapter(mAdapter);
 
-        configureRecyclerView();
-        updateMeetings();
-        // Mettre à jour les données
+        // Set click listener for FAB to add new meeting
         binding.activityListUserFab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
             startActivity(intent);
         });
-
-
-
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateMeetings();
+    }
+
     private void updateMeetings() {
         List<Meeting> meetings = DI.getMeetingApiService().getMeetings();
         mAdapter.updateData(meetings);

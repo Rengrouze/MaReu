@@ -1,19 +1,19 @@
 package com.javacourse.oc.maru.model;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Meeting {
 
-    private long id;
+    private String id;
     private String time;
     private String location;
     private String subject;
-    private ArrayList<String> participants;
+    private String participants;
     private String date;
 
 
     /**
      * Constructor
+     *
      * @param id
      * @param time
      * @param location
@@ -21,7 +21,7 @@ public class Meeting {
      * @param participants
      */
 
-    public Meeting(int id, String time, String location, String subject, ArrayList<String> participants, String date) {
+    public Meeting(String id, String time, String location, String subject, String participants, String date) {
         this.id = id;
         this.time = time;
         this.location = location;
@@ -30,11 +30,11 @@ public class Meeting {
         this.date = date;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,11 +62,11 @@ public class Meeting {
         this.subject = subject;
     }
 
-    public ArrayList<String> getParticipants() {
+    public String getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<String> participants) {
+    public void setParticipants(String participants) {
         this.participants = participants;
     }
 
