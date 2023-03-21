@@ -76,7 +76,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Get values from input fields
-                String date = selectedDate != null ? new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate.getTime()) : null;
+                String date = selectedDate != null ? new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(selectedDate.getTime()) : null;
                 String time = binding.timePickerEdittext.getText().toString();
                 String room = binding.roomPicker.getText().toString();
                 String theme = binding.themePickerEdittext.getText().toString();
