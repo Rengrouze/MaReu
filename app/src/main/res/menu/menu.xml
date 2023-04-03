@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.widget.SearchView" />
-    <item
-        android:id="@+id/app_bar_filter"
+        android:id="@+id/app_bar_filter_date"
         android:icon="@drawable/baseline_filter_list_24"
-        android:title="Filter"
+        android:title="Filter par date"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/app_bar_filter_room"
+        android:icon="@drawable/baseline_filter_list_24"
+        android:title="Filter par salle"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/app_bar_filter_nothing"
+        android:icon="@drawable/baseline_filter_list_24"
+        android:title="Supprimer les filtres"
         app:showAsAction="never"/>
 </menu>

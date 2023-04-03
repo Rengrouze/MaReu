@@ -40,18 +40,19 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         int color = Color.GRAY; // Couleur par défaut
         switch (roomName) {
             case "Salle 1":
-                color = Color.BLUE;
+                color = Color.parseColor("#2962FF"); // bleu foncé
                 break;
             case "Salle 2":
-                color = Color.GREEN;
+                color = Color.parseColor("#00C853"); // vert
                 break;
             case "Salle 3":
-                color = Color.RED;
+                color = Color.parseColor("#D50000"); // rouge foncé
                 break;
             // Ajoutez des cas pour chaque salle avec sa propre couleur
         }
         return color;
     }
+
 
 
 }
