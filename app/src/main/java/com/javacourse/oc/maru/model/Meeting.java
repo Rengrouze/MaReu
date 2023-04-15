@@ -1,6 +1,10 @@
+
+
 package com.javacourse.oc.maru.model;
 import java.util.Objects;
-
+/**
+ * Modèle de réunion avec getters et setters
+ */
 public class Meeting {
 
     private String id;
@@ -14,11 +18,12 @@ public class Meeting {
     /**
      * Constructor
      *
-     * @param id
-     * @param time
-     * @param location
-     * @param subject
-     * @param participants
+     * @param id L'identifiant de la réunion
+     * @param time L'heure de la réunion
+     * @param location Le lieu de la réunion
+     * @param subject Le sujet de la réunion
+     * @param participants Les participants à la réunion
+     * @param date La date de la réunion
      */
 
     public Meeting(String id, String time, String location, String subject, String participants, String date) {

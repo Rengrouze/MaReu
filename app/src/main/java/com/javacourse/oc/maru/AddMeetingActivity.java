@@ -1,4 +1,8 @@
+
+
 package com.javacourse.oc.maru;
+
+
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -23,77 +27,98 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
 
+/**
+ * Cette classe permet l'ajout de réunion à la liste
+ */
 public class AddMeetingActivity extends AppCompatActivity {
-
+    /**
+     * Binding pour l'activité AddMeetingActivity.
+     */
     private ActivityAddMeetingBinding binding;
-
+    /**
+     * Calendrier pour stocker la date sélectionnée.
+     */
     private Calendar selectedDate;
-
+    /**
+     * Méthode appelée lors de la création de l'activité.
+     *
+     * @param savedInstanceState État sauvegardé de l'activité.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Initialiser le spinner pour la sélection de la salle
         String[] roomOptions ={"Salle 1" , "Salle 2", "Salle 3"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roomOptions);
         binding.roomPicker.setAdapter(adapter);
-        // Set click listener for date picker button
+
         Button datePickerButton = binding.datePickerButton;
         Button timePickerButton = binding.timePickerButton;
 
+        // Définir un listener de sélection d'item pour le spinner de la salle
         binding.roomPicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // Get the selected room
+                // Obtenir la salle sélectionnée
                 String room = (String) adapterView.getItemAtPosition(i);
                 Toast.makeText(AddMeetingActivity.this, "Selected room: " + room, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                // Do nothing
+                // Ne rien faire
             }
         });
 
+//  Définir un listener au clic du bouton de sélection de la date
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Show date picker dialog
+                // ouvrir le date picker
                 showDatePicker();
             }
         });
+        //  Définir un listener au clic du bouton de sélection de l'heure
         timePickerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                // ouvrir le time picker
                 showTimePicker();
             }
         });
 
-        // Set click listener for add meeting button
+        // Définir un listener au clic du bouton d'ajout de la réunion
         Button addMeetingButton = binding.addMeetingButton;
         addMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Get values from input fields
+                // Obtenir les valeurs dans les champs
                 String date = selectedDate != null ? new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(selectedDate.getTime()) : null;
                 String time = binding.timePickerEdittext.getText().toString();
                 String room = binding.roomPicker.getText().toString();
                 String theme = binding.themePickerEdittext.getText().toString();
                 String participants = binding.peoplesEdittext.getText().toString();
 
+
+                // vérifiez si les champs sont vides
                 if (date == null || time.isEmpty() || room.isEmpty() || theme.isEmpty() || participants.isEmpty()){
                     Toast.makeText(AddMeetingActivity.this, "Veuillez remplir tout les champs", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
+
+                // créer une nouvelle réunion
                 Meeting newMeeting = new Meeting(UUID.randomUUID().toString(),time,room,theme,participants,date);
                 DI.getMeetingApiService().addMeeting(newMeeting);
 
-                // Show success message
+                // montre un petit message de succès
                 Toast.makeText(AddMeetingActivity.this, "Meeting added", Toast.LENGTH_SHORT).show();
 
-                // Finish activity
+                // Termine l'activité
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 finish();
@@ -103,6 +128,9 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Affiche le date picker.
+     */
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -127,6 +155,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    /**
+     * Affiche le dialogue de sélection de l'heure.
+     */
     private void showTimePicker() {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);

@@ -8,15 +8,28 @@ import com.javacourse.oc.maru.databinding.ItemListMeetingBinding;
 import com.javacourse.oc.maru.di.DI;
 import com.javacourse.oc.maru.model.Meeting;
 
+/**
+ * ViewHolder pour afficher un élément de réunion dans un RecyclerView.
+ */
 public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
     ItemListMeetingBinding binding;
 
+    /**
+     * Constructeur du ViewHolder.
+     *
+     * @param binding Objet de liaison pour les vues de l'élément de réunion.
+     */
     public MeetingViewHolder(@NonNull ItemListMeetingBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
     }
 
+    /**
+     * Méthode pour lier les données de la réunion à la vue du ViewHolder.
+     *
+     * @param meeting Réunion à afficher.
+     */
     public void bind(Meeting meeting) {
 
         binding.itemListMeetingName.setText( meeting.getDate() + " - " +meeting.getLocation() + " - "+ meeting.getTime());
@@ -31,11 +44,23 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         });
 
     }
+
+    /**
+     * Méthode pour définir la couleur de la salle de réunion dans la vue.
+     *
+     * @param roomName Nom de la salle de réunion.
+     */
     public void setMeetingRoomColor(String roomName) {
         int color = getColorForRoom(roomName); // Définir la couleur en fonction de la salle de réunion
         binding.itemListMeetingColour.setColorFilter(color);
     }
 
+    /**
+     * Méthode pour obtenir la couleur associée à une salle de réunion.
+     *
+     * @param roomName Nom de la salle de réunion.
+     * @return Couleur associée à la salle de réunion.
+     */
     private int getColorForRoom(String roomName) {
         int color = Color.GRAY; // Couleur par défaut
         switch (roomName) {
@@ -52,7 +77,4 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         }
         return color;
     }
-
-
-
 }

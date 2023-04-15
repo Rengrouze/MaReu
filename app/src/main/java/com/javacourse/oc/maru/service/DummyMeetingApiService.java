@@ -1,6 +1,5 @@
 package com.javacourse.oc.maru.service;
 
-
 import com.javacourse.oc.maru.model.Meeting;
 
 import java.lang.reflect.Array;
@@ -10,35 +9,52 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 /**
- * Dummy mock for the Meetings API
+ * Classe qui implémente l'interface MeetingApiService pour fournir un service factice de réunions.
  */
 public class DummyMeetingApiService implements MeetingApiService {
 
-
-
+        // Liste des réunions
         private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 
         /**
-         * {@inheritDoc}
+         * Récupère la liste des réunions.
+         *
+         * @return la liste des réunions
          */
         @Override
         public List<Meeting> getMeetings() {
             return meetings;
         }
 
-
-
+        /**
+         * Ajoute une réunion à la liste.
+         *
+         * @param meeting la réunion à ajouter
+         */
         @Override
         public void addMeeting(Meeting meeting){
                 meetings.add(meeting);
         }
 
+        /**
+         * Supprime une réunion de la liste.
+         *
+         * @param meeting la réunion à supprimer
+         */
         @Override
         public void deleteMeeting(Meeting meeting){
                 meetings.remove(meeting);
         }
 
+        /**
+         * Récupère la liste des réunions filtrées par date.
+         *
+         * @param date la date à utiliser pour le filtre
+         * @return la liste des réunions filtrées par date
+         * @throws ParseException si la date fournie n'est pas dans le format "dd-MM-yyyy"
+         */
         @Override
         public ArrayList<Meeting> getMeetingsFilteredByDate(Date date) throws ParseException {
                 ArrayList<Meeting> result = new ArrayList<>();
@@ -58,6 +74,12 @@ public class DummyMeetingApiService implements MeetingApiService {
                 return result;
         }
 
+        /**
+         * Récupère la liste des réunions filtrées par salle de réunion.
+         *
+         * @param room la salle de réunion à utiliser pour le filtre
+         * @return la liste des réunions filtrées par salle de réunion
+         */
         @Override
         public ArrayList<Meeting> getMeetingsFilteredByRoom(String room) {
                 ArrayList<Meeting> result = new ArrayList<>();
@@ -72,4 +94,3 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
 
 }
-
