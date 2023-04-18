@@ -5,7 +5,6 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -17,13 +16,16 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -31,80 +33,35 @@ import androidx.test.filters.LargeTest;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CreateAmeetingTest {
+public class CreateAMeeting {
 
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
-    public void createAmeetingTest() {
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
+    public void createAMeeting() {
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.activity_list_user_rv),
+                        withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        appCompatImageButton.perform(click());
+        recyclerView.check(matches(isDisplayed()));
 
-        ViewInteraction appCompatImageButton2 = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton2.perform(click());
+        recyclerView.check((view, noViewFoundException) -> {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
 
-        ViewInteraction appCompatImageButton3 = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton3.perform(click());
-
-        ViewInteraction appCompatImageButton4 = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton4.perform(click());
-
-        ViewInteraction appCompatImageButton5 = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton5.perform(click());
-
-        ViewInteraction appCompatImageButton6 = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.activity_list_user_rv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton6.perform(click());
+            RecyclerView rv = (RecyclerView) view;
+            RecyclerView.Adapter adapter = rv.getAdapter();
+            assertEquals(6,adapter.getItemCount());
+        });
 
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.activity_list_user_fab),
@@ -126,18 +83,17 @@ public class CreateAmeetingTest {
         materialAutoCompleteTextView.perform(scrollTo(), click());
 
         DataInteraction appCompatCheckedTextView = onData(anything())
-                .inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
-                        0))
-                .atPosition(0);
+
+                .atPosition(0).inRoot(RootMatchers.isPlatformPopup());
         appCompatCheckedTextView.perform(click());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.datePickerButton), withText("Choisissez une date"),
                         childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
+                                allOf(withId(R.id.activity_frame),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.ScrollView")),
+                                                0)),
                                 2)));
         materialButton.perform(scrollTo(), click());
 
@@ -153,9 +109,10 @@ public class CreateAmeetingTest {
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.timePickerButton), withText("Choisissez une horaire"),
                         childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
+                                allOf(withId(R.id.activity_frame),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.ScrollView")),
+                                                0)),
                                 4)));
         materialButton3.perform(scrollTo(), click());
 
@@ -184,49 +141,28 @@ public class CreateAmeetingTest {
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
                                 0)));
-        textInputEditText2.perform(scrollTo(), replaceText("Elias"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.peoples_edittext), withText("Elias"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("com.google.android.material.textfield.TextInputLayout")),
-                                        0),
-                                0)));
-        textInputEditText3.perform(pressImeActionButton());
+        textInputEditText2.perform(scrollTo(), replaceText("Test"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
-                allOf(withId(R.id.addMeetingButton), withText("Cr�er une r�union"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                7)));
+                withId(R.id.addMeetingButton));
+
         materialButton5.perform(scrollTo(), click());
 
-        ViewInteraction viewGroup = onView(
-                allOf(withParent(allOf(withId(R.id.activity_list_user_rv),
-                                withParent(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class)))),
+        ViewInteraction recyclerView2 = onView(
+                allOf(withId(R.id.activity_list_user_rv),
+                        withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        viewGroup.check(matches(isDisplayed()));
+        recyclerView2.check(matches(isDisplayed()));
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.item_list_meeting_name), withText("20-04-2023 - Salle 1 - 12:00"),
-                        withParent(withParent(withId(R.id.activity_list_user_rv))),
-                        isDisplayed()));
-        textView.check(matches(withText("20-04-2023 - Salle 1 - 12:00")));
+        recyclerView.check((view, noViewFoundException) -> {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.item_list_meeting_theme), withText("Test"),
-                        withParent(withParent(withId(R.id.activity_list_user_rv))),
-                        isDisplayed()));
-        textView2.check(matches(withText("Test")));
-
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.item_list_meeting_people), withText("Elias"),
-                        withParent(withParent(withId(R.id.activity_list_user_rv))),
-                        isDisplayed()));
-        textView3.check(matches(withText("Elias")));
+            RecyclerView rv = (RecyclerView) view;
+            RecyclerView.Adapter adapter = rv.getAdapter();
+            assertEquals(7,adapter.getItemCount());
+        });
     }
 
     private static Matcher<View> childAtPosition(

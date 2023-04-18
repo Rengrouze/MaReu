@@ -17,6 +17,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -43,7 +44,7 @@ public class ListUserExist {
         recyclerView.check(matches(isDisplayed()));
 
         // Vérifie si le RecyclerView a le nombre d'éléments attendu
-        int expectedItemCount = 6; // Remplacez par le nombre d'éléments attendu dans la liste
+
         recyclerView.check((view, noViewFoundException) -> {
             if (noViewFoundException != null) {
                 throw noViewFoundException;
@@ -51,7 +52,7 @@ public class ListUserExist {
 
             RecyclerView rv = (RecyclerView) view;
             RecyclerView.Adapter adapter = rv.getAdapter();
-            assertThat(adapter.getItemCount(), is(expectedItemCount));
+            assertEquals(6,adapter.getItemCount());
         });
     }
 }

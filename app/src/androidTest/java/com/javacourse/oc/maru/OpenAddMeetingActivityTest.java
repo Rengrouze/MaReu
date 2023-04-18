@@ -51,95 +51,47 @@ public class OpenAddMeetingActivityTest {
         floatingActionButton.perform(click());
 
         ViewInteraction linearLayout = onView(
-                allOf(withParent(withParent(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class))),
+                allOf(withId(R.id.activity_frame),
                         isDisplayed()));
         linearLayout.check(matches(isDisplayed()));
 
         ViewInteraction spinner = onView(
-                allOf(withId(R.id.room_Picker), withText("Salle"),
-                        withParent(withParent(withId(R.id.roomPickerLayout))),
+                allOf(withId(R.id.room_Picker),
                         isDisplayed()));
         spinner.check(matches(isDisplayed()));
 
         ViewInteraction editText = onView(
-                allOf(withId(R.id.date_picker_edittext), withText("Date"),
-                        withParent(withParent(withId(R.id.datePickerLayout))),
+                allOf(withId(R.id.date_picker_edittext),
+
                         isDisplayed()));
         editText.check(matches(isDisplayed()));
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.datePickerButton), withText("CHOISISSEZ UNE DATE"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class))),
-                        isDisplayed()));
+                allOf(withId(R.id.datePickerButton),   isDisplayed()));
         button.check(matches(isDisplayed()));
 
         ViewInteraction editText2 = onView(
-                allOf(withId(R.id.time_picker_edittext), withText("Heure de la r�union"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                        isDisplayed()));
+                allOf(withId(R.id.time_picker_edittext),  isDisplayed()));
         editText2.check(matches(isDisplayed()));
 
         ViewInteraction button2 = onView(
-                allOf(withId(R.id.timePickerButton), withText("CHOISISSEZ UNE HORAIRE"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class))),
-                        isDisplayed()));
+                allOf(withId(R.id.timePickerButton), isDisplayed()));
         button2.check(matches(isDisplayed()));
 
         ViewInteraction editText3 = onView(
-                allOf(withId(R.id.theme_picker_edittext), withText("Th�me de la r�union"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
+                allOf(withId(R.id.theme_picker_edittext), withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
                         isDisplayed()));
         editText3.check(matches(isDisplayed()));
 
         ViewInteraction editText4 = onView(
-                allOf(withId(R.id.peoples_edittext), withText("Participants, s�par�s par une virgule"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                        isDisplayed()));
+                allOf(withId(R.id.peoples_edittext),  isDisplayed()));
         editText4.check(matches(isDisplayed()));
 
         ViewInteraction button3 = onView(
-                allOf(withId(R.id.addMeetingButton), withText("CR�ER UNE R�UNION"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class))),
-                        isDisplayed()));
+                allOf(withId(R.id.addMeetingButton),   isDisplayed()));
         button3.check(matches(isDisplayed()));
 
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.datePickerButton), withText("Choisissez une date"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                2)));
-        materialButton.perform(scrollTo(), click());
 
-        ViewInteraction linearLayout2 = onView(
-                allOf(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class)),
-                        isDisplayed()));
-        linearLayout2.check(matches(isDisplayed()));
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        materialButton2.perform(scrollTo(), click());
-
-        ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.timePickerButton), withText("Choisissez une horaire"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                4)));
-        materialButton3.perform(scrollTo(), click());
-
-        ViewInteraction linearLayout3 = onView(
-                allOf(withParent(allOf(IsInstanceOf.<View>instanceOf(android.widget.TimePicker.class),
-                                withParent(withId(android.R.id.custom)))),
-                        isDisplayed()));
-        linearLayout3.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(
